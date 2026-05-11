@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tutor PWA</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AIチューター・ポータル</h1>
+            <select id="modelSelect">
+                <option value="gemini-1.5-flash">Gemini Flash (速い)</option>
+                <option value="gemini-1.5-pro">Gemini Pro (超天才)</option>
+            </select>
+        </header>
+
+        <section class="input-area">
+            <select id="subjectSelect">
+                <option value="general">何でも屋</option>
+                <option value="programming">プログラミング</option>
+                <option value="mathA">数学A</option>
+            </select>
+            <textarea id="userInput" placeholder="質問、日報、または作りたいサイトの構成..."></textarea>
+            <input type="file" id="imageInput" accept="image/*">
+            
+            <div class="button-grid">
+                <button id="sendBtn" class="primary">AIに相談</button>
+                <button id="quizBtn" class="accent">クイズ生成</button>
+                <button id="predictBtn" class="secondary">テスト予想</button>
+            </div>
+        </section>
+
+        <!-- プログラミング用 -->
+        <section id="codeSection" class="editor-area">
+            <textarea id="codeEditor" placeholder="生成されたコードがここに入ります..."></textarea>
+            <div class="code-controls">
+                <button id="runBtn">▶ 実行</button>
+                <button id="saveBtn">💾 保存</button>
+            </div>
+            <iframe id="previewFrame"></iframe>
+        </section>
+
+        <div id="aiResponse" class="markdown-body hidden"></div>
+        <div id="quizSection" class="hidden">
+            <h3>📝 確認クイズ</h3>
+            <div id="quizContainer"></div>
+        </div>
+
+        <section class="history">
+            <h3>履歴</h3>
+            <div id="historyList"></div>
+        </section>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+</body>
+</html>
